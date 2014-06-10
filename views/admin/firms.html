@@ -1,4 +1,3 @@
 {{extend 'layout.html'}}
-<p>Before you add new firm, please use the browser to check if it doesn't already exist!</p>
-{{=form}}
+{{=A('Add new firm', _href=URL('firm', 'new'))}}
 {{=grid}}
