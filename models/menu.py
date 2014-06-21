@@ -13,5 +13,5 @@ if auth.user:
             ('Firms', False, URL('admin', 'firms')),
             ('Categories', False, URL('admin', 'category')),
             ('Fields', False, URL('admin', 'field')),
-            ('Users', False, URL('admin', 'index')),
+            ('Users', False, URL('admin', 'users')),
         ]

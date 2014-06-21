@@ -89,3 +89,11 @@ def field():
         create=True,
     )
     return locals()
+
+@auth.requires_membership('admin')
+def users():
+    grid = SQLFORM.grid(
+        db.auth_user,
+        fields = [db.auth_user.id, db.auth_user.username, db.auth_user.first_name, db.auth_user.last_name, db.auth_user.email]
+    )
+    return locals()
