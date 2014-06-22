@@ -1,7 +1,6 @@
 def index():
-	crud.settings.formstyle = 'divs'
-	firm = db.firm(request.args(0,cast=int)) or redirect(URL('index'))
-	form = crud.read(db.firm, firm)
+	firm = db.firms(request.args(0,cast=int)) or redirect(URL('index'))
+	form = crud.read(db.firms, firm)
 		
 
 	"""
@@ -13,7 +12,7 @@ def index():
 
 def new():
 	crud.settings.formstyle = 'divs'
-	form = crud.create(db.firm)
+	form = crud.create(db.firms)
 	if form.process().accepted:
 		response.flash = 'form accepted'
 	elif form.errors:
@@ -26,7 +25,7 @@ def edit():
 	crud.settings.formstyle = 'divs'
 	if request.args(0):
 		firm_id = request.args(0)
-	form = crud.update(db.firm, firm_id)
+	form = crud.update(db.firms, firm_id)
 	if form.process().accepted:
 		response.flash = 'form accepted'
 	elif form.errors:

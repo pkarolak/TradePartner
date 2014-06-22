@@ -9,9 +9,8 @@ response.menu = []
 if auth.user:
     if auth.has_membership("admin"):
         response.menu = [
-            ('Search', False, URL('admin', 'index')),
-            ('Firms', False, URL('admin', 'firms')),
-            ('Categories', False, URL('admin', 'category')),
-            ('Fields', False, URL('admin', 'field')),
-            ('Users', False, URL('admin', 'users')),
+            ('Szukaj', False, URL('admin', 'index')),
+            ('Firmy', False, URL('admin', 'firms')),
+            ('Użytkownicy', False, URL('admin', 'users')),
+            ('Zarządzanie tagami', False, URL('admin', 'field')),
         ]
