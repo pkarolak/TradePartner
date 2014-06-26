@@ -11,6 +11,12 @@ if auth.user:
         response.menu = [
             ('Szukaj', False, URL('admin', 'index')),
             ('Firmy', False, URL('admin', 'firms')),
+            ['Transakcje', False, '',
+                [
+                    ['Nowa', False, URL('transaction','new')],
+                    ['Archiwum Twoich Transakcji', False, URL('transaction','archive')],
+                ]
+            ],
             ('Użytkownicy', False, URL('admin', 'users')),
             ('Zarządzanie tagami', False, URL('admin', 'field')),
         ]

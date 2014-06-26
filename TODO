@@ -1,6 +1,5 @@
 - firms -> show: ładniejszy widok formularza
 - system "lajków"
-- współbieżna edycja danych firmy (pewnie mutex zwykly)
 - historia współpracy z firmą -> kto z jakim przedstawicielem co zamówił -> link "history" przy firmie?
 - komentarze do przebiegu pracy z firmą
 - zarządzanie użytkownikami -> ustawianie grupy -> lista grup, w których jest na liście userów?

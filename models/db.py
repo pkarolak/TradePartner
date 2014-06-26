@@ -18,6 +18,7 @@ auth.settings.login_next = URL('index')
 auth.settings.register_next = URL('user', args='login')
 auth.settings.register_onaccept.append(lambda form: auth.add_membership('other', db(db.auth_user.email == form.vars.email).select().first().id))
 
+db.auth_user._format = '%(first_name)s %(last_name)s'
 
 db.define_table(
     'fields',
@@ -82,7 +83,7 @@ db.define_table('comments',
     Field('firm_id', db.firms),
     Field('outer_representative_id', db.representatives),
     Field('self_representative_id', db.auth_user),
-    Field('comment'),
+    Field('comment', 'text'),
 )
 db.comments.firm_id.label = T('Firma')
 db.comments.outer_representative_id.label = T('Przedstawiciel firmy')
@@ -94,8 +95,8 @@ db.define_table('transactions',
     Field('firm_id', db.firms),
     Field('outer_representative_id', db.representatives),
     Field('self_representative_id', db.auth_user),
-    Field('description'),
-    Field('comment'),
+    Field('description', 'text', requires=IS_NOT_EMPTY()),
+    Field('comment', 'text'),
     Field('transaction_date', 'date', requires=IS_NOT_EMPTY()),
 )
 db.transactions.firm_id.label = T('Firma')
