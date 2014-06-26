@@ -71,11 +71,12 @@ def field():
     grid = SQLFORM.grid(
         db.fields,
         user_signature=False,
-        editable=True,
+        editable=False,
         deletable=True,
         details=False,
         create=True,
         csv=False,
+        fields = [db.fields.name,]
     )
     return locals()
 

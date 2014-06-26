@@ -1,6 +1,6 @@
-- firms -> show: ładniejszy widok formularza
++ firms -> show: ładniejszy widok formularza
 + system "lajków"
-- historia współpracy z firmą -> kto z jakim przedstawicielem co zamówił -> link "history" przy firmie?
++ historia współpracy z firmą -> kto z jakim przedstawicielem co zamówił -> link "history" przy firmie?
 - komentarze do przebiegu pracy z firmą
 + zarządzanie użytkownikami -> ustawianie grupy -> lista grup, w których jest na liście userów?
 - dodawanie nowych grup

@@ -18,18 +18,32 @@ def new():
 
 @auth.requires_membership('admin')
 def archive():
-	grid = SQLFORM.grid(
-        db.transactions,
-        user_signature=False,
-        editable=False,
-        deletable=False,
-        details=True,
-        create=False,
-        csv=False,
-        searchable=False,
-        maxtextlength=200,
-    	fields = [db.transactions.firm_id, db.transactions.description],
-    )   
+	if(request.vars["firm_id"]):
+		grid = SQLFORM.grid(
+	        (db.transactions.firm_id == request.vars["firm_id"]),
+	        user_signature=False,
+	        editable=False,
+	        deletable=False,
+	        details=True,
+	        create=False,
+	        csv=False,
+	        searchable=False,
+	        maxtextlength=200,
+	    	fields = [db.transactions.firm_id, db.transactions.description],
+	    )
+	else:		
+		grid = SQLFORM.grid(
+	        db.transactions,
+	        user_signature=False,
+	        editable=False,
+	        deletable=False,
+	        details=True,
+	        create=False,
+	        csv=False,
+	        searchable=False,
+	        maxtextlength=200,
+	    	fields = [db.transactions.firm_id, db.transactions.description],
+	    )   
 	return locals()
 
 @auth.requires_membership('admin')

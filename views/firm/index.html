@@ -1,11 +1,12 @@
 {{extend 'layout.html'}}
-{{=form}}
 {{=A('Edytuj', _href=URL("firm", "edit", vars={"firm_id":request.vars["firm_id"]}))}}   |   
 {{=A('Przedstawiciele', _href=URL("firm", "representatives", vars={"firm_id":request.vars["firm_id"]}))}}   |   
+{{=A('Historia współpracy', _href=URL("transaction", "archive", vars={"firm_id":request.vars["firm_id"]}))}}   |   
 {{if(likable):}}
 {{=A('Lubię to!', _href=URL("firm", "like", vars={"firm_id":request.vars["firm_id"]}))}}
 {{else:}}
 {{=A('Nie lubię!', _href=URL("firm", "dislike", vars={"firm_id":request.vars["firm_id"]}))}}
 {{pass}}
+{{=form}}
 
 
