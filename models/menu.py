@@ -12,5 +12,6 @@ if auth.user:
             ('Szukaj', False, URL('admin', 'index')),
             ('Firmy', False, URL('admin', 'firms')),
             ('Użytkownicy', False, URL('admin', 'users')),
+            ('Grupy', False, URL('admin', 'groups')),
             ('Zarządzanie tagami', False, URL('admin', 'field')),
         ]
