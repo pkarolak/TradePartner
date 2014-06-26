@@ -59,6 +59,10 @@ def firms():
                 header='',
                 body=lambda row: A('Wybierz', _href=URL("firm", "index", args=[row.id]))
             ),
+            dict(
+                header='',
+                body=lambda row: A('Edytuj', _href=URL("firm", "edit", args=[row.id]))
+            )
         ]
 
     )
