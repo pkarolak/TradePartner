@@ -7,6 +7,23 @@ def index():
 		likable = True
 	else:
 		likable = False
+
+	db.comments.firm_id.default = request.vars["firm_id"]	
+	db.comments.firm_id.readable = False	
+	db.comments.firm_id.writable = False
+
+	db.comments.self_representative_id.default = auth.user.id	
+	db.comments.self_representative_id.readable = False	
+	db.comments.self_representative_id.writable = False
+
+	add = crud.create(db.comments,)
+	if add.process().accepted:
+		response.flash = 'zapisano transakcję'
+		redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
+	elif add.errors:
+		response.flash = 'znaleziono pewne błędy'
+	comments = db(db.comments.firm_id == request.vars["firm_id"]).select()
+
 	"""
 	db.post.page_id.default = this_page.id
 	form = SQLFORM(db.post).process() if auth.user else None
@@ -18,11 +35,11 @@ def index():
 def new():
 	form = crud.create(db.firms)
 	if form.process().accepted:
-		response.flash = 'form accepted'
+		response.flash = 'zapisano transakcję'
 	elif form.errors:
-		response.flash = 'form has errors'
+		response.flash = 'znaleziono pewne błędy'
 	else:
-		response.flash = 'please fill out the form'
+		response.flash = 'wypełnij formularz'
 	return locals()
 
 @auth.requires_membership('admin')
@@ -31,11 +48,11 @@ def edit():
 		firm_id = request.vars["firm_id"]
 	form = crud.update(db.firms, firm_id)
 	if form.process().accepted:
-		response.flash = 'form accepted'
+		response.flash = 'zapisano transakcję'
 	elif form.errors:
-		response.flash = 'form has errors'
+		response.flash = 'znaleziono pewne błędy'
 	else:
-		response.flash = 'please fill out the form'
+		response.flash = 'wypełnij formularz'
 	return locals()
 
 @auth.requires_membership('admin')
@@ -68,6 +85,11 @@ def dislike():
 	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
 	return 'done'
 
+@auth.requires_membership('admin')
+def add_comment():
+	db.comments.insert(firm_id=request.vars["firm_id"], self_representative_id=auth.user.id, comment=request.vars["comment"], outer_representative_id=request.vars["outer_representative_id"])	
+	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
+	return 'done'
+
 def delete():
 	return locals()
-

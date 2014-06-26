@@ -35,7 +35,7 @@ def archive():
 		grid = SQLFORM.grid(
 	        db.transactions,
 	        user_signature=False,
-	        editable=False,
+	        editable=True,
 	        deletable=False,
 	        details=True,
 	        create=False,
