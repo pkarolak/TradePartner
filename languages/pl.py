@@ -115,7 +115,7 @@
 'Function disabled': 'Funkcja wyłączona',
 'Group ID': 'ID grupy',
 'Group uniquely assigned to user %(id)s': 'Group uniquely assigned to user %(id)s',
-'Groups': 'Groups',
+'Groups': 'Grupy',
 'Hello World': 'Witaj Świecie',
 'Home': 'Home',
 'How did you get here?': 'How did you get here?',

@@ -10,6 +10,7 @@ def index():
 	"""
 	return locals()
 
+@auth.requires_membership('admin')
 def new():
 	crud.settings.formstyle = 'divs'
 	form = crud.create(db.firms)
@@ -21,6 +22,7 @@ def new():
 		response.flash = 'please fill out the form'
 	return locals()
 
+@auth.requires_membership('admin')
 def edit():
 	crud.settings.formstyle = 'divs'
 	if request.args(0):

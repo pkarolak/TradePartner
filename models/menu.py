@@ -18,5 +18,6 @@ if auth.user:
                 ]
             ],
             ('Użytkownicy', False, URL('admin', 'users')),
+            ('Grupy', False, URL('admin', 'groups')),
             ('Zarządzanie tagami', False, URL('admin', 'field')),
         ]

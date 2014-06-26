@@ -59,6 +59,10 @@ def firms():
                 header='',
                 body=lambda row: A('Wybierz', _href=URL("firm", "index", args=[row.id]))
             ),
+            dict(
+                header='',
+                body=lambda row: A('Edytuj', _href=URL("firm", "edit", args=[row.id]))
+            )
         ]
 
     )
@@ -88,5 +92,19 @@ def users():
         details=False,
         create=True,
         csv=False,
+    )
+    return locals()
+
+@auth.requires_membership('admin')
+def groups():
+    grid = SQLFORM.grid(
+        db.auth_membership,
+        fields = [db.auth_membership.id, db.auth_membership.user_id, db.auth_membership.group_id],
+        user_signature = False,
+        editable = True,
+        deletable = True,
+        details = False,
+        create = True,
+        csv = False
     )
     return locals()

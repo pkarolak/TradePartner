@@ -17,6 +17,7 @@ auth.settings.extra_fields['auth_user'] = (
 auth.settings.login_next = URL('index')
 auth.settings.register_next = URL('user', args='login')
 auth.settings.register_onaccept.append(lambda form: auth.add_membership('other', db(db.auth_user.email == form.vars.email).select().first().id))
+auth.settings.create_user_groups = False
 
 db.auth_user._format = '%(first_name)s %(last_name)s'
 
@@ -114,3 +115,6 @@ db.likes.firm_id.label = T('Firma')
 db.likes.liker.label = T('Lubi ją')
 db.auth_user.first_name.label = T('Imię')
 db.auth_user.last_name.label = T('Nazwisko')
+
+db.auth_membership.user_id.label = T('User ID')
+db.auth_membership.group_id.label = T('Group ID')
