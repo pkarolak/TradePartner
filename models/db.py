@@ -114,3 +114,6 @@ db.likes.firm_id.label = T('Firma')
 db.likes.liker.label = T('Lubi ją')
 db.auth_user.first_name.label = T('Imię')
 db.auth_user.last_name.label = T('Nazwisko')
+
+db.auth_membership.user_id.label = T('User ID')
+db.auth_membership.group_id.label = T('Group ID')
