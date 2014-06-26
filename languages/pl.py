@@ -249,6 +249,7 @@
 'Sure you want to delete this object?': 'Czy na pewno chcesz usunąć ten obiekt?',
 'Table': 'tabela',
 'Table name': 'Nazwa tabeli',
+'Telefon': 'Telefon',
 'The "query" is a condition like "db.table1.field1==\'value\'". Something like "db.table1.field1==db.table2.field2" results in a SQL JOIN.': '"Zapytanie" jest warunkiem postaci "db.tabela1.pole1==\'wartość\'". Takie coś jak "db.tabela1.pole1==db.tabela2.pole2" oznacza SQL JOIN.',
 'The Core': 'Szkielet',
 'The output of the file is a dictionary that was rendered by the view %s': 'Słownik wyrenderowany przez %s',
