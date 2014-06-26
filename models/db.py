@@ -111,6 +111,7 @@ db.define_table('likes',
     Field('firm_id', db.firms),
     Field('liker', db.auth_user),
 )
+db.likes.liker.requires=IS_NOT_IN_DB(db(db.likes.firm_id==request.vars.firm_id), 'likes.liker')
 db.likes.firm_id.label = T('Firma')
 db.likes.liker.label = T('Lubi ją')
 db.auth_user.first_name.label = T('Imię')

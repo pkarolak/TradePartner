@@ -40,7 +40,8 @@ def search_result():
                 header='',
                 body=lambda row: A('Zobacz', _href=URL("firm", "index", args=[row.id]))
             )
-        ]
+        ],
+        orderby = ~db.firms.rating,
     )
     return locals()
 
@@ -59,7 +60,8 @@ def firms():
                 header='',
                 body=lambda row: A('Wybierz', _href=URL("firm", "index", vars={"firm_id":[row.id]}))
             ),
-        ]
+        ],
+        orderby = ~db.firms.rating,
 
     )
     return locals()

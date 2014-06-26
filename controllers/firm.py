@@ -2,8 +2,11 @@ def index():
 
 	firm = db.firms(request.vars["firm_id"]) or redirect(URL('index'))
 	form = crud.read(db.firms, firm)
-		
-
+	rate = db.firms(request.vars["firm_id"]).rating	
+	if( db((db.likes.firm_id == request.vars["firm_id"])).count() == 0):
+		likable = True
+	else:
+		likable = False
 	"""
 	db.post.page_id.default = this_page.id
 	form = SQLFORM(db.post).process() if auth.user else None
@@ -52,19 +55,18 @@ def representatives():
 
 @auth.requires_membership('admin')
 def like():
-	rate = db.firms(request.vars["firm_id"]).rating + 1
-	db.firms(request.vars["firm_id"]).update(rating = rate)
+	db(db.firms.id == request.vars["firm_id"]).update(rating = db.firms(request.vars["firm_id"]).rating + 1)
 	db.likes.insert(firm_id=request.vars["firm_id"], liker=auth.user.id)
-	redirect(URL("admin", "index"))
-	return locals()
+	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
+	return 'done'
 
 
 @auth.requires_membership('admin')
 def dislike():
-	db.firms(request.vars["firm_id"]).update(rating = db.firms(request.vars["firm_id"]).rating - 1)
-	db.likes(firm_id==request.vars["firm_id"] & liker==auth.user.id).delete()
-	redirect(URL("admin", "index"))
-	return locals()
+	db(db.firms.id == request.vars["firm_id"]).update(rating = db.firms(request.vars["firm_id"]).rating - 1)
+	db((db.likes.firm_id==request.vars["firm_id"]) & (db.likes.liker==auth.user.id)).delete()
+	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
+	return 'done'
 
 def delete():
 	return locals()

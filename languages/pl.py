@@ -160,6 +160,7 @@
 'Logout': 'Wyloguj',
 'Lost Password': 'Przypomnij hasło',
 'Lost password?': 'Zapomniałeś hasła?',
+'Lubi ją': 'Lubi ją',
 'Main Menu': 'Menu główne',
 'Manage Cache': 'Manage Cache',
 'Menu Model': 'Model menu',
