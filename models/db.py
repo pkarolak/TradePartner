@@ -17,6 +17,7 @@ auth.settings.extra_fields['auth_user'] = (
 auth.settings.login_next = URL('index')
 auth.settings.register_next = URL('user', args='login')
 auth.settings.register_onaccept.append(lambda form: auth.add_membership('other', db(db.auth_user.email == form.vars.email).select().first().id))
+auth.settings.create_user_groups = False
 
 
 db.define_table(
