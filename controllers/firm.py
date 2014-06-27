@@ -1,6 +1,5 @@
 def index():
-
-	firm = db.firms(request.vars["firm_id"]) or redirect(URL('index'))
+	firm = db.firms(request.vars["firm_id"]) or redirect(URL('admin','firms'))
 	form = crud.read(db.firms, firm)
 	rate = db.firms(request.vars["firm_id"]).rating	
 	if( db((db.likes.firm_id == request.vars["firm_id"])).count() == 0):
