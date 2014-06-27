@@ -13,12 +13,17 @@ if auth.user:
             ('Firmy', False, URL('admin', 'firms')),
             ['Transakcje', False, '',
                 [
-                    ['Nowa', False, URL('transaction','new')],
+                    ['Dodaj nową', False, URL('transaction','new')],
                     ['Archiwum Twoich Transakcji', False, URL('transaction','archive')],
                 ]
             ],
-            ('Przedstawiciele handlowi', False, URL('salesman', 'list')),
+            ('Przedstawiciele handlowi', False, URL('salesman', 'index')),
             ('Użytkownicy', False, URL('admin', 'users')),
-            ('Grupy', False, URL('admin', 'groups')),
+            ['Grupy', False, '',
+                [
+                    ['Dodaj nową', False, URL('groups', 'new')],
+                    ['Zarządzaj przypisaniami', False, URL('groups', 'index')] 
+                ]
+            ],
             ('Zarządzanie tagami', False, URL('admin', 'field')),
         ]

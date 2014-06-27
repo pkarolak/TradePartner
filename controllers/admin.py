@@ -93,7 +93,7 @@ def users():
         csv=False,
     )
     return locals()
-
+'''
 @auth.requires_membership('admin')
 def groups():
     grid = SQLFORM.grid(
@@ -107,3 +107,4 @@ def groups():
         csv = False
     )
     return locals()
+'''
