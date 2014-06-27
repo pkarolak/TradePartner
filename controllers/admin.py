@@ -38,7 +38,7 @@ def search_result():
         links=[
             dict(
                 header='',
-                body=lambda row: A('Zobacz', _href=URL("firm", "index", args=[row.id]))
+                body=lambda row: A('Zobacz', _href=URL("firm", "index", vars={"firm_id":[row.id]}))
             )
         ],
         orderby = ~db.firms.rating,

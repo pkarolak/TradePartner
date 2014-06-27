@@ -17,6 +17,7 @@ if auth.user:
                     ['Archiwum Twoich Transakcji', False, URL('transaction','archive')],
                 ]
             ],
+            ('Przedstawiciele handlowi', False, URL('salesman', 'list')),
             ('Użytkownicy', False, URL('admin', 'users')),
             ('Grupy', False, URL('admin', 'groups')),
             ('Zarządzanie tagami', False, URL('admin', 'field')),
