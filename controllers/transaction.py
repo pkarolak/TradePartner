@@ -16,7 +16,7 @@ def new():
 		response.flash = 'wypełnij formularz'
 	return locals()
 
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def archive():
 	if(request.vars["firm_id"]):
 		grid = SQLFORM.grid(
@@ -46,7 +46,7 @@ def archive():
 	    )   
 	return locals()
 
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def get_employees():
 	if(request.vars["firm_id"]):
 		employees = db(db.representatives.firm_id == request.vars["firm_id"])

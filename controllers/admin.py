@@ -1,4 +1,4 @@
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def index():
     if request.vars.keyword:
         session.keyword = request.vars.keyword
@@ -6,6 +6,7 @@ def index():
         redirect(URL('search_result'))
     return locals()
 
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def search_result():
     phrase = session.keyword if session.keyword else session.phrase
     session.phrase = phrase
@@ -45,7 +46,7 @@ def search_result():
     )
     return locals()
 
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def firms():
     grid = SQLFORM.grid(
         db.firms,
@@ -66,7 +67,7 @@ def firms():
     )
     return locals()
 
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def field():
     grid = SQLFORM.grid(
         db.fields,
@@ -77,20 +78,6 @@ def field():
         create=True,
         csv=False,
         fields = [db.fields.name,]
-    )
-    return locals()
-
-@auth.requires_membership('admin')
-def users():
-    grid = SQLFORM.grid(
-        db.auth_user,
-        fields = [db.auth_user.id, db.auth_user.first_name, db.auth_user.last_name, db.auth_user.email],
-        user_signature=False,
-        editable=True,
-        deletable=True,
-        details=False,
-        create=True,
-        csv=False,
     )
     return locals()
 

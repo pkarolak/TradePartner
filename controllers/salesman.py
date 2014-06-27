@@ -1,4 +1,4 @@
-@auth.requires_membership('admin')
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def index():
     grid = SQLFORM.grid(
         db.representatives,

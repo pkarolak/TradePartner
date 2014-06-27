@@ -18,9 +18,10 @@ if auth.user:
                 ]
             ],
             ('Przedstawiciele handlowi', False, URL('salesman', 'index')),
-            ('Użytkownicy', False, URL('admin', 'users')),
+            ('Użytkownicy', False, URL('users', 'list')),
             ['Grupy', False, '',
                 [
+                    ['Lista grup', False, URL('groups', 'list')],
                     ['Dodaj nową', False, URL('groups', 'new')],
                     ['Zarządzaj przypisaniami', False, URL('groups', 'index')] 
                 ]

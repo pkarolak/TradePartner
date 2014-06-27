@@ -1,3 +1,4 @@
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def index():
 	firm = db.firms(request.vars["firm_id"]) or redirect(URL('admin','firms'))
 	form = crud.read(db.firms, firm)
@@ -54,7 +55,7 @@ def edit():
 		response.flash = 'wypełnij formularz'
 	return locals()
 
-@auth.requires_membership('admin')
+@auth.requires(has_membership('admin') or has_membership('salesman'))
 def representatives():
 	 grid = SQLFORM.grid(
         (db.representatives.firm_id == request.vars["firm_id"]),
@@ -90,5 +91,6 @@ def add_comment():
 	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
 	return 'done'
 
+@auth.requires_membership('admin')
 def delete():
 	return locals()
