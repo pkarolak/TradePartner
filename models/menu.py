@@ -15,9 +15,10 @@ if auth.user:
                 [
                     ['Dodaj nową', False, URL('transaction','new')],
                     ['Archiwum Twoich Transakcji', False, URL('transaction','archive')],
+                    ['Archiwum Wszystkich Transakcji', False, URL('transaction','archive_all')],
                 ]
             ],
-            ('Przedstawiciele handlowi', False, URL('salesman', 'index')),
+            #('Przedstawiciele handlowi', False, URL('salesman', 'index')),
             ('Użytkownicy', False, URL('users', 'list')),
             ['Grupy', False, '',
                 [
@@ -27,4 +28,18 @@ if auth.user:
                 ]
             ],
             ('Zarządzanie tagami', False, URL('admin', 'field')),
+        ]
+    if auth.has_membership("salesman"):
+        response.menu = [
+            ('Szukaj', False, URL('admin', 'index')),
+            ('Firmy', False, URL('admin', 'firms')),
+            ['Transakcje', False, '',
+                [
+                    ['Dodaj nową', False, URL('transaction','new')],
+                    ['Archiwum Twoich Transakcji', False, URL('transaction','archive')],
+                ]
+            ],
+            #('Przedstawiciele handlowi', False, URL('salesman', 'index')),
+            #('Użytkownicy', False, URL('users', 'list')),
+            ('Dodaj tagi', False, URL('admin', 'field')),
         ]

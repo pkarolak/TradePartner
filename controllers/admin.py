@@ -73,7 +73,7 @@ def field():
         db.fields,
         user_signature=False,
         editable=False,
-        deletable=True,
+        deletable=auth.has_membership('admin'),
         details=False,
         create=True,
         csv=False,

@@ -84,7 +84,8 @@ db.define_table('comments',
     Field('firm_id', db.firms),
     Field('outer_representative_id', db.representatives),
     Field('self_representative_id', db.auth_user),
-    Field('comment', 'text'),
+    Field('comment', 'text', requires=IS_NOT_EMPTY()),
+    Field('date','datetime', requires=IS_DATETIME()),
 )
 db.comments.firm_id.label = T('Firma')
 db.comments.outer_representative_id.label = T('Przedstawiciel firmy')

@@ -8,24 +8,36 @@
 {{=A('Nie lubię!', _href=URL("firm", "dislike", vars={"firm_id":request.vars["firm_id"]}))}}
 {{pass}}
 {{=form}}
-<h5>Komentarze użytkowników:</h5>
+<div class="detailBox">
+    <div class="commentBox">
+        
+        <p class="taskDescription">Komentarze użytkowników</p>
+    </div>
+    <div class="actionBox">
+        <ul class="commentList">
+			{{for comment in comments:}}
+            <li>
+                <div class="commentText">
+                    <p class="">{{=comment.comment}}</p>
+                    <span class="date sub-text">
+                    	<b>
+							~{{=db.auth_user(comment.self_representative_id).first_name, }}
+							{{=db.auth_user(comment.self_representative_id).last_name}}
+						</b>
+						{{if(comment.outer_representative_id != None):}}
+						obsługiwany przez: 
+						<b>
+							{{=db.representatives(comment.outer_representative_id).name,}}
+							{{=db.representatives(comment.outer_representative_id).surname}}
+						</b>
+						{{pass}}
+					</span>
+                    <span class="date sub-text">{{=comment.date}}</span>
+                </div>
+            </li>
+			{{pass}}
+        </ul>
+    </div>
+</div>
 {{=add}}
-{{for comment in comments:}}
-<div class="comment">
-<div class="comment-core">
-{{=comment.comment}}
-</div>
-<div class="comment-author">
-<strong>
-	~{{=db.auth_user(comment.self_representative_id).first_name, }}
-	{{=db.auth_user(comment.self_representative_id).last_name}}
-</strong>
-obsługiwany przez: 
-<strong>
-	{{=db.representatives(comment.outer_representative_id).name,}}
-	{{=db.representatives(comment.outer_representative_id).surname}}
-</strong>
-</div>
-</div>
-{{pass}}
 
