@@ -30,12 +30,6 @@ def index():
 	elif add.errors:
 		response.flash = 'komentarz nie mógł zostać dodany'
 	comments = db(db.comments.firm_id == request.vars["firm_id"]).select(orderby=db.comments.date)
-
-	"""
-	db.post.page_id.default = this_page.id
-	form = SQLFORM(db.post).process() if auth.user else None
-	pagecomments = db(db.post.page_id==this_page.id).select()
-	"""
 	return locals()
 
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
