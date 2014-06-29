@@ -22,7 +22,7 @@ sS'type'
 p10
 S'text'
 p11
-ssS'self_representative_id'
+ssS'date'
 p12
 (dp13
 g4
@@ -30,14 +30,14 @@ I512
 sg5
 I00
 sg6
-I4
+I6
 sg7
-S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
+S'TIMESTAMP'
 p14
 sg9
 I00
 sg10
-S'reference auth_user'
+S'datetime'
 p15
 ssS'comment_date'
 p16
@@ -96,7 +96,7 @@ I00
 sg10
 S'reference representatives'
 p33
-ssS'date'
+ssS'self_representative_id'
 p34
 (dp35
 g4
@@ -104,14 +104,14 @@ I512
 sg5
 I00
 sg6
-I6
+I4
 sg7
-S'TIMESTAMP'
+S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
 p36
 sg9
 I00
 sg10
-S'datetime'
+S'reference auth_user'
 p37
 ssS'id'
 p38

@@ -9,8 +9,8 @@ response.menu = []
 if auth.user:
     if auth.has_membership("admin"):
         response.menu = [
-            ('Szukaj', False, URL('admin', 'index')),
-            ('Firmy', False, URL('admin', 'firms')),
+            ('Szukaj', False, URL('app', 'index')),
+            ('Firmy', False, URL('app', 'firms')),
             ['Transakcje', False, '',
                 [
                     ['Dodaj nową', False, URL('transaction','new')],
@@ -27,12 +27,12 @@ if auth.user:
                     ['Zarządzaj przypisaniami', False, URL('groups', 'index')] 
                 ]
             ],
-            ('Zarządzanie tagami', False, URL('admin', 'field')),
+            ('Zarządzanie tagami', False, URL('app', 'field')),
         ]
     if auth.has_membership("salesman"):
         response.menu = [
-            ('Szukaj', False, URL('admin', 'index')),
-            ('Firmy', False, URL('admin', 'firms')),
+            ('Szukaj', False, URL('app', 'index')),
+            ('Firmy', False, URL('app', 'firms')),
             ['Transakcje', False, '',
                 [
                     ['Dodaj nową', False, URL('transaction','new')],
@@ -41,5 +41,9 @@ if auth.user:
             ],
             #('Przedstawiciele handlowi', False, URL('salesman', 'index')),
             #('Użytkownicy', False, URL('users', 'list')),
-            ('Dodaj tagi', False, URL('admin', 'field')),
+            ('Dodaj tagi', False, URL('app', 'field')),
+        ]
+    if auth.has_membership("visitor"):
+        response.menu = [
+            ('Szukaj', False, URL('app', 'index')),
         ]

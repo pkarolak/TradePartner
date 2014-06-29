@@ -1,3 +1,8 @@
 {{extend "layout.html"}}
 <h1>{{=T('Users')}}</h1><br/>
+{{if (request.args(0) == None):}}
+<h2>Użytkownicy oczekujący na aktywację</h2>
+{{=gridNA}}
+<h2>Aktywni użytkownicy</h2>
+{{pass}}
 {{=grid}}

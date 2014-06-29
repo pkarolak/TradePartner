@@ -1,7 +1,7 @@
 import datetime
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def index():
-	firm = db.firms(request.vars["firm_id"]) or redirect(URL('admin','firms'))
+	firm = db.firms(request.vars["firm_id"]) or redirect(URL('app','firms'))
 	form = crud.read(db.firms, firm)
 	rate = db.firms(request.vars["firm_id"]).rating	
 
@@ -27,7 +27,6 @@ def index():
 	add = crud.create(db.comments,)
 	if add.process(vars={'firm_id':request['firm_id']}).accepted:
 		response.flash = 'komentarz dodany!'
-		redirect(URL('firm', 'index', vars={'firm_id':session['firm_id']}))
 	elif add.errors:
 		response.flash = 'komentarz nie mógł zostać dodany'
 	comments = db(db.comments.firm_id == request.vars["firm_id"]).select(orderby=db.comments.date)
@@ -40,21 +39,6 @@ def index():
 	return locals()
 
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
-def new():
-	db.firms.rating.default = 0
-	db.firms.rating.readable = False	
-	db.firms.rating.writable = False
-	form = crud.create(db.firms)
-	if form.process().accepted:
-		response.flash = 'zapisano'
-		redirect(URL('firm', 'index'))
-	elif form.errors:
-		response.flash = 'znaleziono pewne błędy'
-	else:
-		response.flash = 'wypełnij formularz'
-	return locals()
-
-@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def edit():
 	db.firms.rating.readable = False	
 	db.firms.rating.writable = False
@@ -63,7 +47,7 @@ def edit():
 	form = crud.update(db.firms, firm_id)
 	if form.process().accepted:
 		response.flash = 'zapisano'
-		redirect(URL('firm', 'index'))
+		redirect(URL('firm', 'index', vars={'firm_id':request['firm_id']}))
 	elif form.errors:
 		response.flash = 'znaleziono pewne błędy'
 	else:
@@ -89,22 +73,18 @@ def representatives():
 def like():
 	db(db.firms.id == request.vars["firm_id"]).update(rating = db.firms(request.vars["firm_id"]).rating + 1)
 	db.likes.insert(firm_id=request.vars["firm_id"], liker=auth.user.id)
-	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
-	return 'done'
-
+	redirect(URL('index', vars={'firm_id':request.vars['firm_id']}))
 
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def dislike():
 	db(db.firms.id == request.vars["firm_id"]).update(rating = db.firms(request.vars["firm_id"]).rating - 1)
 	db((db.likes.firm_id==request.vars["firm_id"]) & (db.likes.liker==auth.user.id)).delete()
-	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
-	return 'done'
+	redirect(URL('index', vars={'firm_id':request.vars['firm_id']}))
 
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def add_comment():
 	db.comments.insert(firm_id=request.vars["firm_id"], self_representative_id=auth.user.id, comment=request.vars["comment"], outer_representative_id=request.vars["outer_representative_id"])	
-	redirect(URL("index", vars={"firm_id":request.vars["firm_id"]}))
-	return 'done'
+	redirect(URL('index', vars={'firm_id':request.vars['firm_id']}))
 
 @auth.requires_membership('admin')
 def delete():

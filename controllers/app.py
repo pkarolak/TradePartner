@@ -1,4 +1,4 @@
-@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman') or auth.has_membership('visitor'))
 def index():
     if request.vars.keyword:
         session.keyword = request.vars.keyword
@@ -6,7 +6,7 @@ def index():
         redirect(URL('search_result'))
     return locals()
 
-@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
+@auth.requires(auth.has_membership('admin') or auth.has_membership('salesman') or auth.has_membership('visitor'))
 def search_result():
     phrase = session.keyword if session.keyword else session.phrase
     session.phrase = phrase
@@ -30,6 +30,7 @@ def search_result():
             db.firms.phone.contains(phrase, case_sensitive=False)|
             db.firms.categories.contains(fields, all=False) 
         ),
+        searchable=False,
         user_signature=False,
         editable=False,
         deletable=False,
@@ -41,20 +42,22 @@ def search_result():
                 header='',
                 body=lambda row: A('Zobacz', _href=URL("firm", "index", vars={"firm_id":[row.id]}))
             )
-        ],
+        ] if ( auth.has_membership('admin') or auth.has_membership('salesman') ) else None,
         orderby = ~db.firms.rating,
     )
     return locals()
 
 @auth.requires(auth.has_membership('admin') or auth.has_membership('salesman'))
 def firms():
+    db.firms.rating.writable = False
+    db.firms.rating.default = 0
     grid = SQLFORM.grid(
         db.firms,
         user_signature=False,
         editable=False,
         deletable=False,
         details=False,
-        create=False,
+        create=True,
         csv=False,
         links=[
             dict(
@@ -72,7 +75,7 @@ def field():
     grid = SQLFORM.grid(
         db.fields,
         user_signature=False,
-        editable=False,
+        editable=True,
         deletable=auth.has_membership('admin'),
         details=False,
         create=True,

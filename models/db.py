@@ -11,12 +11,13 @@ auth.define_tables(username=False)
 crud = Crud(db)
 
 auth.settings.extra_fields['auth_user'] = (
-    [Field('user_type', requires=IS_IN_SET(['admin', 'salesman', 'designer', 'other']))]
+    [Field('user_type', requires=IS_IN_SET(['admin', 'salesman', 'visitor']))]
 )
 
 auth.settings.login_next = URL('index')
 auth.settings.register_next = URL('user', args='login')
-auth.settings.register_onaccept.append(lambda form: auth.add_membership('other', db(db.auth_user.email == form.vars.email).select().first().id))
+auth.settings.register_onaccept.append(lambda form: auth.add_membership('visitor', db(db.auth_user.email == form.vars.email).select().first().id))
+auth.settings.registration_requires_approval = True
 auth.settings.create_user_groups = False
 
 db.auth_user._format = '%(first_name)s %(last_name)s'
@@ -58,7 +59,7 @@ db.firms.website.label = T('Strona internetowa')
 db.firms.email.label = T('Email')
 db.firms.phone.label = T('Nr telefonu')
 db.firms.categories.label = T('Oferta')
-db.firms.rating.label = T('Ocena')
+db.firms.rating.label = T('Lubi to')
 
 
 db.define_table('representatives',

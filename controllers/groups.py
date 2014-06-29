@@ -16,7 +16,7 @@ def index():
 def list():
     grid = SQLFORM.grid(
         db.auth_group,
-        fields = [db.auth_group.id, db.auth_group.role, db.auth_group.description],
+        fields = [db.auth_group.role, db.auth_group.description],
         user_signature = False,
         editable = True,
         deletable = True,
@@ -31,12 +31,12 @@ def new():
     form = crud.create(db.auth_group)
     if form.process().accepted:
         response.flash = 'Dodano nową grupę'
+        redirect(URL('index'))
     elif form.errors:
         response.flash = 'Nie udało się dodać grupy'
     else:
         response.flash = 'Wypełnij formularz'
 
-    redirect(URL('index'))
 
     return locals()
 
